@@ -35,14 +35,19 @@ namespace FilesChanger
         {
             using (FolderBrowserDialog folderBrowser = new FolderBrowserDialog())
             {
-                if(folderBrowser.ShowDialog() == DialogResult.OK)
+                if (folderBrowser.ShowDialog() == DialogResult.OK)
                 {
                     pathToFiles = folderBrowser.SelectedPath;
+                    FilesListView.Items.Clear();
+                    FillListView();
                 }
             }
+        }
 
+        private void FillListView()
+        {
             DirectoryInfo di = new DirectoryInfo(pathToFiles);
-            FileInfo[] files = di.GetFiles();
+            FileInfo[] files = di.GetFiles("*", SearchOption.AllDirectories);
             int i = 0;
             foreach (var item in files)
             {
@@ -53,7 +58,7 @@ namespace FilesChanger
         private void button2_Click(object sender, EventArgs e)
         {
             DirectoryInfo di = new DirectoryInfo(pathToFiles);
-            FileInfo[] files = di.GetFiles();
+            FileInfo[] files = di.GetFiles("*", SearchOption.AllDirectories);
 
             pbBar.Maximum = files.Length;
             pbBar.Minimum = 0;
