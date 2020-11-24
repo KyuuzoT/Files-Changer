@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FilesChanger
@@ -83,7 +75,7 @@ namespace FilesChanger
 
             string message = $"Job is done. Program execution time: {watch.Elapsed}";
             MessageBox.Show(message, "Done!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            System.Threading.Thread.Sleep(1000);
+            Thread.Sleep(1000);
             pbBar.Value = 0;
         }
     }
