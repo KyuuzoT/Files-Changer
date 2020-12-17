@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FilesChanger
@@ -10,6 +11,7 @@ namespace FilesChanger
     public class FilesPartialChangingHelper
     {
         internal static char PartialReplacementChar = default;
+        internal static FileInfo file;
         private static string partialStrContent = default;
         private static bool endOfFileFlag = false;
 
@@ -40,11 +42,37 @@ namespace FilesChanger
             }
         }
 
+        internal static void PartialChangeFile()
+        {
+            char[] buffer = new char[bufferSize];
+            using (var sr = new StreamReader(file.FullName))
+            {
+                int length = 0;
+                int maxLength = sr.ReadToEnd().Length;
+                using (var bw = new BinaryWriter(File.Open(file.FullName, FileMode.Open)))
+                {
+                    while (!endOfFileFlag)
+                    {
+                        buffer = PartialChangeSymbols(sr);
+
+                        PartialWriteSymbols(bw, buffer);
+
+                        length += bufferSize;
+                        if (length >= maxLength)
+                        {
+                            endOfFileFlag = true;
+                        }
+                    }
+                }
+            }
+
+            Thread.Sleep(200);
+        }
+
         private static char[] PartialChangeSymbols(StreamReader sr)
         {
             char[] buffer = new char[bufferSize];
-
-            sr.ReadBlock(buffer, 0, bufferSize - 1);
+            sr.ReadBlockAsync(buffer, 0, bufferSize - 1);
             for (int i = 0; i < buffer.Length; i++)
             {
                 if(i%2 == 0)

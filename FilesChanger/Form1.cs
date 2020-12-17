@@ -49,6 +49,7 @@ namespace FilesChanger
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Thread ChangingThread;
             DirectoryInfo di = new DirectoryInfo(pathToFiles);
             FileInfo[] files = di.GetFiles("*", SearchOption.AllDirectories);
 
@@ -56,7 +57,8 @@ namespace FilesChanger
             pbBar.Minimum = 0;
             pbBar.Step = 1;
 
-            FilesChangingHelper.ReplacementChar = '*';
+            //FilesChangingHelper.ReplacementChar = '*';
+            FilesPartialChangingHelper.PartialReplacementChar = '*';
             int i = 0;
 
             Stopwatch watch = new Stopwatch();
@@ -64,7 +66,10 @@ namespace FilesChanger
 
             foreach (var item in files)
             {
-                FilesChangingHelper.ChangeFile(item);
+                //FilesChangingHelper.ChangeFile(item);
+                FilesPartialChangingHelper.file = item;
+                ChangingThread = new Thread(new ThreadStart(FilesPartialChangingHelper.PartialChangeFile));
+                ChangingThread.Start();
                 pbBar.PerformStep();
                 FilesListView.SetItemChecked(i++, value: true);
                 CurrentFile.Text = item.FullName;
