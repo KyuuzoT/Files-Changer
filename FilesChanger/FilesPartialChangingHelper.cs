@@ -18,26 +18,50 @@ namespace FilesChanger
         internal static void PartialChangeFile(FileInfo file)
         {
             char[] buffer = new char[bufferSize];
-            using (var sr = new StreamReader(file.FullName))
+            while (!endOfFileFlag)
             {
                 int length = 0;
-                int maxLength = sr.ReadToEnd().Length;
+                int maxLength = 0;
+
+                using (var sr = new StreamReader(file.FullName))
+                {
+                    maxLength = sr.ReadToEnd().Length;
+                    buffer = PartialChangeSymbols(sr);
+                }
+
                 using (var bw = new BinaryWriter(File.Open(file.FullName, FileMode.Open)))
                 {
-                    while (!endOfFileFlag)
-                    {
-                        buffer = PartialChangeSymbols(sr);
-
-                        PartialWriteSymbols(bw, buffer);
-
-                        length += bufferSize;
-                        if (length >= maxLength)
-                        {
-                            endOfFileFlag = true;
-                        }
-                    }
+                    PartialWriteSymbols(bw, buffer);
                 }
+
+                length += bufferSize;
+                if (length >= maxLength)
+                {
+                    endOfFileFlag = true;
+                }
+
             }
+
+            //using (var sr = new StreamReader(file.FullName))
+            //{
+            //    int length = 0;
+            //    int maxLength = sr.ReadToEnd().Length;
+            //    using (var bw = new BinaryWriter(File.Open(file.FullName, FileMode.Open)))
+            //    {
+            //        while (!endOfFileFlag)
+            //        {
+            //            buffer = PartialChangeSymbols(sr);
+
+            //            PartialWriteSymbols(bw, buffer);
+
+            //            length += bufferSize;
+            //            if (length >= maxLength)
+            //            {
+            //                endOfFileFlag = true;
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         private static char[] PartialChangeSymbols(StreamReader sr)

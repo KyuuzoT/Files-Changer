@@ -17,12 +17,10 @@ namespace FilesChanger
         {
             using (var sr = new StreamReader(file.FullName))
             {
-                //ChangeFileContentSymbols(sr);
-                ChangeFileContentSymbolsInBlocks(sr);
+                ChangeFileContentSymbols(sr);
             }
 
-            //WriteSymbolsToFile(file);
-            WriteSymbolsToFileFromString(file);
+            WriteSymbolsToFile(file);
             strContent = string.Empty;
         }
 
@@ -35,15 +33,6 @@ namespace FilesChanger
             }
         }
         
-        private static void WriteSymbolsToFileFromString(FileInfo file)
-        {
-            byte[] bytes = Encoding.ASCII.GetBytes(strContent);
-            using (var bw = new BinaryWriter(File.Open(file.FullName, FileMode.Open)))
-            {
-                bw.Write(bytes);
-            }
-        }
-
         private static void ChangeFileContentSymbols(StreamReader sr)
         {
             signsArray = default;
@@ -56,30 +45,6 @@ namespace FilesChanger
                 {
                     signsArray[i] = ReplacementChar;
                 }
-            }
-        }
-
-        private static void ChangeFileContentSymbolsInBlocks(StreamReader sr)
-        {
-            char[] buffer;
-            int size = 1024 * 1024;
-            buffer = new char[size];
-
-            int maxLength = sr.ReadToEnd().Length;
-            int length = 0;
-            while(length <= maxLength)
-            {
-                sr.ReadBlock(buffer, 0, size - 1);
-                for (int i = 0; i < buffer.Length; i++)
-                {
-                    if(i%2 == 0)
-                    {
-                        buffer[i] = ReplacementChar;
-                    }
-                }
-
-                strContent += new string(buffer);
-                length += size - 1;
             }
         }
     }

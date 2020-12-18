@@ -57,6 +57,7 @@ namespace FilesChanger
             pbBar.Step = 1;
 
             FilesChangingHelper.ReplacementChar = '*';
+            //FilesPartialChangingHelper.PartialReplacementChar = '*';
             int i = 0;
 
             Stopwatch watch = new Stopwatch();
@@ -65,6 +66,7 @@ namespace FilesChanger
             foreach (var item in files)
             {
                 FilesChangingHelper.ChangeFile(item);
+                //FilesPartialChangingHelper.PartialChangeFile(item);
                 pbBar.PerformStep();
                 FilesListView.SetItemChecked(i++, value: true);
                 CurrentFile.Text = item.FullName;
