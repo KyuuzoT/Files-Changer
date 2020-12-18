@@ -68,12 +68,13 @@ namespace FilesChanger
             {
                 //FilesChangingHelper.ChangeFile(item);
                 FilesPartialChangingHelper.file = item;
-                ChangingThread = new Thread(new ThreadStart(FilesPartialChangingHelper.PartialChangeFile));
-                ChangingThread.Start();
+
                 pbBar.PerformStep();
                 FilesListView.SetItemChecked(i++, value: true);
                 CurrentFile.Text = item.FullName;
+
                 Thread.Sleep(100);
+                FilesPartialChangingHelper.PartialChangeFile();
             }
 
             watch.Stop();

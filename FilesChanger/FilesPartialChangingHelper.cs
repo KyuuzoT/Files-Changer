@@ -16,6 +16,8 @@ namespace FilesChanger
         private static bool endOfFileFlag = false;
 
         private static int bufferSize = 1024 * 1024;
+        private static int currentLength = 0;
+        private static int maxLength = 0;
 
         internal static void PartialChangeFile(FileInfo file)
         {
@@ -42,31 +44,61 @@ namespace FilesChanger
             }
         }
 
-        internal static void PartialChangeFile()
+        internal async static void PartialChangeFile()
         {
             char[] buffer = new char[bufferSize];
-            using (var sr = new StreamReader(file.FullName))
+            await Task.Run(() =>
             {
-                int length = 0;
-                int maxLength = sr.ReadToEnd().Length;
+                while(!endOfFileFlag)
+            {
+                using (var sr = new StreamReader(file.FullName))
+                {
+                    if (maxLength == 0)
+                    {
+                        maxLength = sr.ReadToEnd().Length;
+                    }
+                    buffer = PartialChangeSymbols(sr);
+                    currentLength += bufferSize - 1;
+                }
+
                 using (var bw = new BinaryWriter(File.Open(file.FullName, FileMode.Open)))
                 {
-                    while (!endOfFileFlag)
-                    {
-                        buffer = PartialChangeSymbols(sr);
+                    PartialWriteSymbols(bw, buffer);
+                }
 
-                        PartialWriteSymbols(bw, buffer);
-
-                        length += bufferSize;
-                        if (length >= maxLength)
-                        {
-                            endOfFileFlag = true;
-                        }
-                    }
+                if(currentLength >= maxLength)
+                {
+                    endOfFileFlag = true;
+                    maxLength = 0;
                 }
             }
+            });
+            
+            
 
-            Thread.Sleep(200);
+                //char[] buffer = new char[bufferSize];
+                //using (var sr = new StreamReader(file.FullName))
+                //{
+                //    int length = 0;
+                //    int maxLength = sr.ReadToEnd().Length;
+                //    using (var bw = new BinaryWriter(File.Open(file.FullName, FileMode.Open)))
+                //    {
+                //        while (!endOfFileFlag)
+                //        {
+                //            buffer = PartialChangeSymbols(sr);
+
+                //            PartialWriteSymbols(bw, buffer);
+
+                //            length += bufferSize;
+                //            if (length >= maxLength)
+                //            {
+                //                endOfFileFlag = true;
+                //            }
+                //        }
+                //    }
+                //}
+
+                Thread.Sleep(200);
         }
 
         private static char[] PartialChangeSymbols(StreamReader sr)
