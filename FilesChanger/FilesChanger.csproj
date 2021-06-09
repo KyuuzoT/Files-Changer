@@ -71,6 +71,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ButtonsBehaviourProcessor.cs" />
+    <Compile Include="Extensions\ColoredCheckedListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Extensions\ColorsResolver.cs" />
+    <Compile Include="Extensions\StandartColors.cs" />
     <Compile Include="FilesChangingHelper.cs" />
     <Compile Include="FilesPartialChangingHelper.cs" />
     <Compile Include="Form1.cs">
