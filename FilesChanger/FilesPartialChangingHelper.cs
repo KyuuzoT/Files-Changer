@@ -14,32 +14,65 @@ namespace FilesChanger
         private static bool endOfFileFlag = false;
 
         private static int bufferSize = 1024 * 1024;
+        private static int currentLength = 0;
+        private static int maxLength = 0;
+        private static char[] buffer;
 
         internal static void PartialChangeFile(FileInfo file)
         {
-            char[] buffer = new char[bufferSize];
+            //char[] buffer /*= new char[bufferSize]*/;
+            //while (!endOfFileFlag)
+            //{
+            //    int length = 0;
+            //    int maxLength = 0;
+
+            //    using (var sr = new StreamReader(file.FullName))
+            //    {
+            //        maxLength = sr.ReadToEnd().Length;
+            //        buffer = PartialChangeSymbols(sr);
+            //    }
+
+            //    using (var bw = new BinaryWriter(File.Open(file.FullName, FileMode.Open)))
+            //    {
+            //        PartialWriteSymbols(bw, buffer);
+            //    }
+
+            //    length += bufferSize;
+            //    if (length >= maxLength)
+            //    {
+            //        endOfFileFlag = true;
+            //    }
+
+            //}
+
+            int seekOffset = 0;
+            endOfFileFlag = false;
             while (!endOfFileFlag)
             {
-                int length = 0;
-                int maxLength = 0;
-
                 using (var sr = new StreamReader(file.FullName))
                 {
-                    maxLength = sr.ReadToEnd().Length;
-                    buffer = PartialChangeSymbols(sr);
+                    if (maxLength == 0)
+                    {
+                        maxLength = sr.ReadToEnd().Length;
+                        buffer = new char[maxLength/4];
+                    }
+                    buffer = PartialChangeSymbols(sr, buffer.Length);
+                    currentLength += buffer.Length;
                 }
 
                 using (var bw = new BinaryWriter(File.Open(file.FullName, FileMode.Open)))
                 {
-                    PartialWriteSymbols(bw, buffer);
+                    PartialWriteSymbols(bw, buffer, seekOffset);
+                    seekOffset += buffer.Length - 1;
                 }
 
-                length += bufferSize;
-                if (length >= maxLength)
+                if (currentLength >= maxLength)
                 {
                     endOfFileFlag = true;
+                    maxLength = 0;
+                    currentLength = 0;
+                    buffer = Array.Empty<char>();
                 }
-
             }
 
             //using (var sr = new StreamReader(file.FullName))
@@ -64,11 +97,11 @@ namespace FilesChanger
             //}
         }
 
-        private static char[] PartialChangeSymbols(StreamReader sr)
+        private static char[] PartialChangeSymbols(StreamReader sr, int size)
         {
-            char[] buffer = new char[bufferSize];
+            char[] buffer = new char[size];
 
-            sr.ReadBlock(buffer, 0, bufferSize - 1);
+            sr.ReadBlock(buffer, 0, buffer.Length - 1);
             for (int i = 0; i < buffer.Length; i++)
             {
                 if(i%2 == 0)
@@ -80,9 +113,10 @@ namespace FilesChanger
             return buffer;
         }
 
-        private static void PartialWriteSymbols(BinaryWriter bw, char[] buffer)
+        private static void PartialWriteSymbols(BinaryWriter bw, char[] buffer, int seekOffset)
         {
             byte[] bytes = Encoding.ASCII.GetBytes(new string(buffer));
+            bw.Seek(seekOffset, SeekOrigin.Current);
             bw.Write(bytes);
         }
     }
