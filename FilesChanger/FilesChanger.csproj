@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ButtonsBehaviourProcessor.cs" />
     <Compile Include="FilesChangingHelper.cs" />
     <Compile Include="FilesPartialChangingHelper.cs" />
     <Compile Include="Form1.cs">
