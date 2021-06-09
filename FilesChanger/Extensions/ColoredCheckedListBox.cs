@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace FilesChanger.Extensions
 {
-    public class ColoredCheckedListBox : System.Windows.Forms.CheckedListBox
+    public class ColoredCheckedListBox : CheckedListBox
     {
         private ColorsResolver resolver = new ColorsResolver();
         private Color color;
@@ -36,6 +36,13 @@ namespace FilesChanger.Extensions
                     e.BackColor
                 );
             base.OnDrawItem(newEvent);
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            this.ResumeLayout(false);
+
         }
     }
 }

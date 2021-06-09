@@ -1,4 +1,6 @@
-﻿namespace FilesChanger
+﻿using FilesChanger.Extensions;
+
+namespace FilesChanger
 {
     partial class Form1
     {
@@ -30,6 +32,7 @@
         {
             this.pbBar = new System.Windows.Forms.ProgressBar();
             this.FilesListView = new System.Windows.Forms.CheckedListBox();
+            //this.FilesListView = new ColoredCheckedListBox();
             this.btnPath = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.CurrentFile = new System.Windows.Forms.Label();

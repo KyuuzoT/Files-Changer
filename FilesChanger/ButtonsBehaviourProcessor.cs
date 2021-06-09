@@ -50,7 +50,6 @@ namespace FilesChanger
 
         private void CheckItemInList(ref int index)
         {
-            filesList.
             filesList.SetItemChecked(index, value: true);
             currentFile.Text = $"Progress: {filesList.Items[index]}";
             index++;
