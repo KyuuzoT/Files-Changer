@@ -65,13 +65,26 @@ namespace FilesChanger
             return bar;
         }
 
+        private bool isItemChecked(FileInfo item)
+        {
+            int index = filesList.Items.IndexOf(item);
+
+            if (filesList.GetItemChecked(index))
+            {
+                MessageBox.Show($"Checked item: {item}", "Check!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+            return true;
+        }
+
         private void ProcessFiles()
         {
             FilesPartialChangingHelper.PartialReplacementChar = '*';
             int itemIndex = 0;
             foreach (var item in files)
             {
-                FilesPartialChangingHelper.PartialChangeFile(item);
+                //FilesPartialChangingHelper.PartialChangeFile(item);
+                isItemChecked(item);
                 pbBar.PerformStep();
                 CheckItemInList(ref itemIndex);
             }
