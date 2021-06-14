@@ -25,5 +25,11 @@ namespace FilesChanger
         {
             buttons.ProcessStartButtonClick();
         }
+
+        private void btnCheckAll_Click(object sender, EventArgs e)
+        {
+            buttons.CheckAllItems();
+            btnCheckAll.Text = btnCheckAll.Text.Equals("Check all") ? "Uncheck all" : "Check all";
+        }
     }
 }

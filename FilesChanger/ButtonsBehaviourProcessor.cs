@@ -50,7 +50,7 @@ namespace FilesChanger
 
         private void CheckItemInList(ref int index)
         {
-            filesList.SetItemChecked(index, value: true);
+            //filesList.SetItemChecked(index, value: true);
             currentFile.Text = $"Progress: {filesList.Items[index]}";
             index++;
         }
@@ -71,10 +71,10 @@ namespace FilesChanger
 
             if (filesList.GetItemChecked(index))
             {
-                MessageBox.Show($"Checked item: {item}", "Check!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //MessageBox.Show($"Checked item: {item}", "Check!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
-            return true;
+            return filesList.GetItemChecked(index);
         }
 
         private void ProcessFiles()
@@ -83,10 +83,12 @@ namespace FilesChanger
             int itemIndex = 0;
             foreach (var item in files)
             {
-                //FilesPartialChangingHelper.PartialChangeFile(item);
-                isItemChecked(item);
                 pbBar.PerformStep();
-                CheckItemInList(ref itemIndex);
+                if(isItemChecked(item))
+                {
+                    FilesPartialChangingHelper.PartialChangeFile(item);
+                    CheckItemInList(ref itemIndex);
+                }
             }
         }
 
@@ -107,6 +109,27 @@ namespace FilesChanger
         {
             string message = $"Job is done. Program execution time: {time}";
             MessageBox.Show(message, "Done!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        internal void CheckAllItems()
+        {
+            var localCopy = filesList.Items;
+            for (int i = 0; i < localCopy.Count; i++)
+            {
+                if (localCopy[i] == null)
+                {
+                    return;
+                }
+
+                if (!filesList.GetItemChecked(i))
+                {
+                    filesList.SetItemChecked(i, true);
+                }
+                else
+                {
+                    filesList.SetItemChecked(i, false);
+                }
+            }
         }
     }
 }
