@@ -29,7 +29,7 @@ namespace FilesChanger
                     if (maxLength == 0)
                     {
                         maxLength = sr.ReadToEnd().Length;
-                        buffer = new char[maxLength/4];
+                        buffer = new char[1024];
                     }
 
                     if(buffer.Length <= 0)
