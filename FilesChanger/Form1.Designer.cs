@@ -68,7 +68,7 @@ namespace FilesChanger
             this.btnPath.Name = "btnPath";
             this.btnPath.Size = new System.Drawing.Size(141, 40);
             this.btnPath.TabIndex = 2;
-            this.btnPath.Text = "Choose Folder";
+            this.btnPath.Text = "Открыть папку";
             this.btnPath.UseVisualStyleBackColor = true;
             this.btnPath.Click += new System.EventHandler(this.btnPath_Click);
             // 
@@ -81,7 +81,7 @@ namespace FilesChanger
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(141, 40);
             this.btnStart.TabIndex = 3;
-            this.btnStart.Text = "Start";
+            this.btnStart.Text = "Запустить";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -92,9 +92,9 @@ namespace FilesChanger
             this.CurrentFile.Location = new System.Drawing.Point(10, 318);
             this.CurrentFile.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CurrentFile.Name = "CurrentFile";
-            this.CurrentFile.Size = new System.Drawing.Size(51, 13);
+            this.CurrentFile.Size = new System.Drawing.Size(56, 13);
             this.CurrentFile.TabIndex = 4;
-            this.CurrentFile.Text = "Progress:";
+            this.CurrentFile.Text = "Прогресс";
             // 
             // btnCheckAll
             // 
@@ -103,7 +103,7 @@ namespace FilesChanger
             this.btnCheckAll.Name = "btnCheckAll";
             this.btnCheckAll.Size = new System.Drawing.Size(99, 28);
             this.btnCheckAll.TabIndex = 5;
-            this.btnCheckAll.Text = "Check all";
+            this.btnCheckAll.Text = "Выбрать все";
             this.btnCheckAll.UseVisualStyleBackColor = true;
             this.btnCheckAll.Click += new System.EventHandler(this.btnCheckAll_Click);
             // 
