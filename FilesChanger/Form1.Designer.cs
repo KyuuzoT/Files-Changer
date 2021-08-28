@@ -40,6 +40,8 @@ namespace FilesChanger
             // 
             // pbBar
             // 
+            this.pbBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pbBar.Location = new System.Drawing.Point(10, 337);
             this.pbBar.Margin = new System.Windows.Forms.Padding(2);
             this.pbBar.Name = "pbBar";
@@ -48,6 +50,9 @@ namespace FilesChanger
             // 
             // FilesListView
             // 
+            this.FilesListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.FilesListView.CheckOnClick = true;
             this.FilesListView.FormattingEnabled = true;
             this.FilesListView.Location = new System.Drawing.Point(275, 11);
@@ -82,6 +87,7 @@ namespace FilesChanger
             // 
             // CurrentFile
             // 
+            this.CurrentFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.CurrentFile.AutoSize = true;
             this.CurrentFile.Location = new System.Drawing.Point(10, 318);
             this.CurrentFile.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -92,6 +98,7 @@ namespace FilesChanger
             // 
             // btnCheckAll
             // 
+            this.btnCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCheckAll.Location = new System.Drawing.Point(275, 291);
             this.btnCheckAll.Name = "btnCheckAll";
             this.btnCheckAll.Size = new System.Drawing.Size(99, 28);
@@ -112,6 +119,7 @@ namespace FilesChanger
             this.Controls.Add(this.FilesListView);
             this.Controls.Add(this.pbBar);
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MinimumSize = new System.Drawing.Size(616, 405);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
