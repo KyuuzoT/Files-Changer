@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FilesChanger
@@ -37,6 +35,7 @@ namespace FilesChanger
                 filesList.Items.Insert(i++, item);
             }
         }
+
         internal void ProcessRenameCheckBoxClick()
         {
             string message = "Переименование позволит надежнее затереть файлы. Вы уверены, что хотите отключить его?";

@@ -10,10 +10,9 @@ namespace FilesChanger
     public class FilesPartialChangingHelper
     {
         internal static char PartialReplacementChar = default;
-        private static string partialStrContent = default;
+
         private static bool endOfFileFlag = false;
 
-        private static int bufferSize = 1024 * 1024;
         private static int currentLength = 0;
         private static int maxLength = 0;
         private static char[] buffer;
