@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FilesChanger.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -16,12 +17,14 @@ namespace FilesChanger
         private CheckedListBox filesList;
         private Label currentFile;
         private FileInfo[] files;
+        private CheckBox renameFlag;
 
-        internal void Init(ProgressBar bar, CheckedListBox listBox, Label label)
+        internal void Init(ProgressBar bar, CheckedListBox listBox, Label label, CheckBox cbRename)
         {
             pbBar = bar;
             filesList = listBox;
             currentFile = label;
+            renameFlag = cbRename;
         }
 
         private void FillInFilesList(CheckedListBox filesList)
@@ -32,6 +35,19 @@ namespace FilesChanger
             foreach (var item in files)
             {
                 filesList.Items.Insert(i++, item);
+            }
+        }
+        internal void ProcessRenameCheckBoxClick()
+        {
+            string message = "Переименование позволит надежнее затереть файлы. Вы уверены, что хотите отключить его?";
+            if (renameFlag.Checked)
+            {
+                var result = MessageBox.Show(message, "Отключить переименование", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    renameFlag.Checked = false;
+                    return;
+                }
             }
         }
 
@@ -81,34 +97,50 @@ namespace FilesChanger
         {
             FilesPartialChangingHelper.PartialReplacementChar = '*';
             int itemIndex = 0;
+
             foreach (var item in files)
             {
                 pbBar.PerformStep();
-                if(isItemChecked(item))
+                if (isItemChecked(item))
                 {
                     FilesPartialChangingHelper.PartialChangeFile(item);
                     CheckItemInList(ref itemIndex);
                 }
             }
+
+            if (renameFlag.Checked)
+            {
+                RenameFiles(files);
+            }
+        }
+
+        private void RenameFiles(IEnumerable<FileInfo> files)
+        {
+            NameChanger changer = new NameChanger();
+            changer.Power = 7;
+            changer.ProccessRenamingFiles(files);
         }
 
         internal void ProcessStartButtonClick()
         {
-            Stopwatch watch = new Stopwatch();
-            pbBar = InitProgressBar(min: 0, max: files.Length, step: 1);
+            if (filesList.Items.Count > 0 && filesList.CheckedItems.Count > 0)
+            {
+                Stopwatch watch = new Stopwatch();
+                pbBar = InitProgressBar(min: 0, max: files.Length, step: 1);
 
-            watch.Start();
-            ProcessFiles();
-            watch.Stop();
+                watch.Start();
+                ProcessFiles();
+                watch.Stop();
 
-            PrintExecutionMessage(watch.Elapsed);
-            pbBar.Value = 0;
+                PrintExecutionMessage(watch.Elapsed);
+                pbBar.Value = 0;
+            }
         }
 
         private void PrintExecutionMessage(TimeSpan time)
         {
             string message = $"Job is done. Program execution time: {time}";
-            MessageBox.Show(message, "Done!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show(message, "Done!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         internal void CheckAllItems()

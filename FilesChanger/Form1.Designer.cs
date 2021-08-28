@@ -117,6 +117,7 @@
             this.cbRename.TabIndex = 6;
             this.cbRename.Text = "Включить переименование";
             this.cbRename.UseVisualStyleBackColor = true;
+            this.cbRename.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cbRename_MouseDown);
             // 
             // Form1
             // 

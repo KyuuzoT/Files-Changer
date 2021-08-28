@@ -13,7 +13,7 @@ namespace FilesChanger
         public Form1()
         {
             InitializeComponent();
-            buttons.Init(pbBar, FilesListView, CurrentFile);
+            buttons.Init(pbBar, FilesListView, CurrentFile, cbRename);
         }
 
         private void btnPath_Click(object sender, EventArgs e)
@@ -29,7 +29,12 @@ namespace FilesChanger
         private void btnCheckAll_Click(object sender, EventArgs e)
         {
             buttons.CheckAllItems();
-            btnCheckAll.Text = btnCheckAll.Text.Equals("Check all") ? "Uncheck all" : "Check all";
+            btnCheckAll.Text = btnCheckAll.Text.Equals("Выбрать все") ? "Снять все" : "Выбрать все";
+        }
+
+        private void cbRename_MouseDown(object sender, MouseEventArgs e)
+        {
+            buttons.ProcessRenameCheckBoxClick();
         }
     }
 }
