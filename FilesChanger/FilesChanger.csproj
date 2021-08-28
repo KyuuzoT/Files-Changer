@@ -71,11 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ButtonsBehaviourProcessor.cs" />
-    <Compile Include="Extensions\ColoredCheckedListBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Extensions\ColorsResolver.cs" />
-    <Compile Include="Extensions\StandartColors.cs" />
     <Compile Include="FilesChangingHelper.cs" />
     <Compile Include="FilesPartialChangingHelper.cs" />
     <Compile Include="Form1.cs">
@@ -86,9 +81,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Extensions\ColoredCheckedListBox.resx">
-      <DependentUpon>ColoredCheckedListBox.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -113,6 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

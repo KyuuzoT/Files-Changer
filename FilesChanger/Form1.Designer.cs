@@ -1,6 +1,4 @@
-﻿using FilesChanger.Extensions;
-
-namespace FilesChanger
+﻿namespace FilesChanger
 {
     partial class Form1
     {
@@ -36,6 +34,7 @@ namespace FilesChanger
             this.btnStart = new System.Windows.Forms.Button();
             this.CurrentFile = new System.Windows.Forms.Label();
             this.btnCheckAll = new System.Windows.Forms.Button();
+            this.cbRename = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // pbBar
@@ -107,11 +106,24 @@ namespace FilesChanger
             this.btnCheckAll.UseVisualStyleBackColor = true;
             this.btnCheckAll.Click += new System.EventHandler(this.btnCheckAll_Click);
             // 
+            // cbRename
+            // 
+            this.cbRename.AutoSize = true;
+            this.cbRename.Checked = true;
+            this.cbRename.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbRename.Location = new System.Drawing.Point(10, 164);
+            this.cbRename.Name = "cbRename";
+            this.cbRename.Size = new System.Drawing.Size(164, 17);
+            this.cbRename.TabIndex = 6;
+            this.cbRename.Text = "Включить переименование";
+            this.cbRename.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 366);
+            this.Controls.Add(this.cbRename);
             this.Controls.Add(this.btnCheckAll);
             this.Controls.Add(this.CurrentFile);
             this.Controls.Add(this.btnStart);
@@ -135,6 +147,7 @@ namespace FilesChanger
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Label CurrentFile;
         private System.Windows.Forms.Button btnCheckAll;
+        private System.Windows.Forms.CheckBox cbRename;
     }
 }
 
