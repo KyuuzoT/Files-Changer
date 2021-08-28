@@ -27,7 +27,7 @@ namespace FilesChanger
             renameFlag = cbRename;
         }
 
-        private void FillInFilesList(CheckedListBox filesList)
+        private void FillInFilesList()
         {
             DirectoryInfo di = new DirectoryInfo(pathToFiles);
             files = di.GetFiles("*", SearchOption.AllDirectories);
@@ -59,14 +59,13 @@ namespace FilesChanger
                 {
                     pathToFiles = folderBrowser.SelectedPath;
                     filesList.Items.Clear();
-                    FillInFilesList(filesList);
+                    FillInFilesList();
                 }
             }
         }
 
         private void CheckItemInList(ref int index)
         {
-            //filesList.SetItemChecked(index, value: true);
             currentFile.Text = $"Progress: {filesList.Items[index]}";
             index++;
         }
@@ -84,11 +83,6 @@ namespace FilesChanger
         private bool isItemChecked(FileInfo item)
         {
             int index = filesList.Items.IndexOf(item);
-
-            if (filesList.GetItemChecked(index))
-            {
-                //MessageBox.Show($"Checked item: {item}", "Check!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
 
             return filesList.GetItemChecked(index);
         }
@@ -135,6 +129,8 @@ namespace FilesChanger
 
                 PrintExecutionMessage(watch.Elapsed);
                 pbBar.Value = 0;
+                filesList.Items.Clear();
+                FillInFilesList();
             }
         }
 
