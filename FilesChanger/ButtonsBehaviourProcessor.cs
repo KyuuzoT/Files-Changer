@@ -118,7 +118,8 @@ namespace FilesChanger
         {
             NameChanger changer = new NameChanger();
             changer.Power = 7;
-            changer.ProccessRenamingFiles(files);
+            var checkedFiles = files.Where(x => isItemChecked(x)).ToList();
+            changer.ProccessRenamingFiles(checkedFiles);
         }
 
         internal void ProcessStartButtonClick()
