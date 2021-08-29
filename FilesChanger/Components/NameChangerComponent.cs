@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic.FileIO;
 
-namespace FilesChanger.Extensions
+namespace FilesChanger.Components
 {
-    public class NameChanger
+    public class NameChangerComponent
     {
         public int Power { get; set; }
         private List<string> renamingDictionary = new List<string>();

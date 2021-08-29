@@ -1,14 +1,13 @@
-﻿using FilesChanger.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace FilesChanger
+namespace FilesChanger.Components
 {
-    public class ButtonsBehaviourProcessor
+    public class LayoutBehaviourComponent
     {
         private string pathToFiles;
         private ProgressBar pbBar;
@@ -109,7 +108,7 @@ namespace FilesChanger
 
         private void RenameFiles(IEnumerable<FileInfo> files)
         {
-            NameChanger changer = new NameChanger();
+            NameChangerComponent changer = new NameChangerComponent();
             changer.Power = 7;
             var checkedFiles = files.Where(x => isItemChecked(x)).ToList();
             changer.ProccessRenamingFiles(checkedFiles);

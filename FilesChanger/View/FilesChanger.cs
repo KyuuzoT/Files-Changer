@@ -5,7 +5,7 @@ namespace FilesChanger
 {
     public partial class FilesChanger : Form
     {
-        private ButtonsBehaviourProcessor buttons = new ButtonsBehaviourProcessor();
+        private LayoutBehaviourComponent buttons = new LayoutBehaviourComponent();
 
         public FilesChanger()
         {
