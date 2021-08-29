@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FilesChanger.Components.ContentProcessing;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -87,7 +88,7 @@ namespace FilesChanger.Components
 
         private void ProcessFiles()
         {
-            FilesPartialChangingHelper.PartialReplacementChar = '*';
+            FilesPartialChangingComponent.PartialReplacementChar = '*';
             int itemIndex = 0;
 
             foreach (var item in files)
@@ -95,7 +96,7 @@ namespace FilesChanger.Components
                 pbBar.PerformStep();
                 if (isItemChecked(item))
                 {
-                    FilesPartialChangingHelper.PartialChangeFile(item);
+                    FilesPartialChangingComponent.PartialChangeFile(item);
                     CheckItemInList(ref itemIndex);
                 }
             }

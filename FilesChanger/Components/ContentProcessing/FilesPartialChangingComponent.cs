@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace FilesChanger
+namespace FilesChanger.Components.ContentProcessing
 {
-    public class FilesPartialChangingHelper
+    public class FilesPartialChangingComponent
     {
         internal static char PartialReplacementChar = default;
 

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace FilesChanger
+namespace FilesChanger.Components.ContentProcessing
 {
-    public class FilesChangingHelper
+    public class FilesChangingComponent
     {
         internal static char ReplacementChar = default;
         private static string strContent = string.Empty;

@@ -76,8 +76,8 @@
   <ItemGroup>
     <Compile Include="Components\LayoutBehaviourComponent.cs" />
     <Compile Include="Components\NameChangerComponent.cs" />
-    <Compile Include="FilesChangingHelper.cs" />
-    <Compile Include="FilesPartialChangingHelper.cs" />
+    <Compile Include="Components\ContentProcessing\FilesChangingComponent.cs" />
+    <Compile Include="Components\ContentProcessing\FilesPartialChangingComponent.cs" />
     <Compile Include="View\FilesChanger.cs">
       <SubType>Form</SubType>
     </Compile>
