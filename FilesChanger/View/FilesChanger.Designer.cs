@@ -120,7 +120,7 @@
             this.cbRename.UseVisualStyleBackColor = true;
             this.cbRename.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cbRename_MouseDown);
             // 
-            // Form1
+            // FilesChanger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -135,8 +135,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(616, 405);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "FilesChanger";
+            this.Text = "Kyuuzo\'s File Changer";
             this.ResumeLayout(false);
             this.PerformLayout();
 

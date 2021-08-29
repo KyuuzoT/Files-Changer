@@ -64,6 +64,7 @@ namespace FilesChanger.Components
                 sb.Append($"{renamingDictionary[position].Trim(new char[] {' ', '\r'})}{delimiter}");
             }
 
+            sb = new StringBuilder(sb.ToString().Trim(' '));
             sb.Append(extension);
 
             return sb.ToString();
