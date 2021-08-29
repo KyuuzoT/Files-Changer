@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FilesChanger.Components;
+using System;
 using System.Windows.Forms;
 
 namespace FilesChanger
