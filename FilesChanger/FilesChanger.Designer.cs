@@ -1,6 +1,6 @@
 ﻿namespace FilesChanger
 {
-    partial class Form1
+    partial class FilesChanger
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FilesChanger));
             this.pbBar = new System.Windows.Forms.ProgressBar();
             this.FilesListView = new System.Windows.Forms.CheckedListBox();
             this.btnPath = new System.Windows.Forms.Button();
@@ -131,6 +132,7 @@
             this.Controls.Add(this.btnPath);
             this.Controls.Add(this.FilesListView);
             this.Controls.Add(this.pbBar);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(616, 405);
             this.Name = "Form1";

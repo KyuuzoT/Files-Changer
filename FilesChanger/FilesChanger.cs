@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace FilesChanger
 {
-    public partial class Form1 : Form
+    public partial class FilesChanger : Form
     {
         private ButtonsBehaviourProcessor buttons = new ButtonsBehaviourProcessor();
 
-        public Form1()
+        public FilesChanger()
         {
             InitializeComponent();
             buttons.Init(pbBar, FilesListView, CurrentFile, cbRename);
