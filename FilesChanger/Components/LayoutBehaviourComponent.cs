@@ -1,16 +1,14 @@
-﻿using FilesChanger.Extensions;
+﻿using FilesChanger.Components.ContentProcessing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FilesChanger
+namespace FilesChanger.Components
 {
-    public class ButtonsBehaviourProcessor
+    public class LayoutBehaviourComponent
     {
         private string pathToFiles;
         private ProgressBar pbBar;
@@ -37,6 +35,7 @@ namespace FilesChanger
                 filesList.Items.Insert(i++, item);
             }
         }
+
         internal void ProcessRenameCheckBoxClick()
         {
             string message = "Переименование позволит надежнее затереть файлы. Вы уверены, что хотите отключить его?";
@@ -89,7 +88,7 @@ namespace FilesChanger
 
         private void ProcessFiles()
         {
-            FilesPartialChangingHelper.PartialReplacementChar = '*';
+            FilesPartialChangingComponent.PartialReplacementChar = '*';
             int itemIndex = 0;
 
             foreach (var item in files)
@@ -97,7 +96,7 @@ namespace FilesChanger
                 pbBar.PerformStep();
                 if (isItemChecked(item))
                 {
-                    FilesPartialChangingHelper.PartialChangeFile(item);
+                    FilesPartialChangingComponent.PartialChangeFile(item);
                     CheckItemInList(ref itemIndex);
                 }
             }
@@ -110,7 +109,7 @@ namespace FilesChanger
 
         private void RenameFiles(IEnumerable<FileInfo> files)
         {
-            NameChanger changer = new NameChanger();
+            NameChangerComponent changer = new NameChangerComponent();
             changer.Power = 7;
             var checkedFiles = files.Where(x => isItemChecked(x)).ToList();
             changer.ProccessRenamingFiles(checkedFiles);

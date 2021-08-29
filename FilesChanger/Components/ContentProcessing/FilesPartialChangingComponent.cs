@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace FilesChanger
+namespace FilesChanger.Components.ContentProcessing
 {
-    public class FilesPartialChangingHelper
+    public class FilesPartialChangingComponent
     {
         internal static char PartialReplacementChar = default;
-        private static string partialStrContent = default;
+
         private static bool endOfFileFlag = false;
 
-        private static int bufferSize = 1024 * 1024;
         private static int currentLength = 0;
         private static int maxLength = 0;
         private static char[] buffer;

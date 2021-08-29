@@ -56,6 +56,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Jordanfc-Smile-Change-thing.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -71,20 +74,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ButtonsBehaviourProcessor.cs" />
-    <Compile Include="Extensions\NameChanger.cs" />
-    <Compile Include="FilesChangingHelper.cs" />
-    <Compile Include="FilesPartialChangingHelper.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Components\LayoutBehaviourComponent.cs" />
+    <Compile Include="Components\NameChangerComponent.cs" />
+    <Compile Include="Components\ContentProcessing\FilesChangingComponent.cs" />
+    <Compile Include="Components\ContentProcessing\FilesPartialChangingComponent.cs" />
+    <Compile Include="View\FilesChanger.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\FilesChanger.Designer.cs">
+      <DependentUpon>FilesChanger.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="View\FilesChanger.resx">
+      <DependentUpon>FilesChanger.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -113,9 +116,8 @@
     <Content Include="Dictionary\dict.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Jordanfc-Smile-Change-thing.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

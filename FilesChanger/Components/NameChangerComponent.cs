@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic.FileIO;
 
-namespace FilesChanger.Extensions
+namespace FilesChanger.Components
 {
-    public class NameChanger
+    public class NameChangerComponent
     {
         public int Power { get; set; }
         private List<string> renamingDictionary = new List<string>();
@@ -54,17 +54,17 @@ namespace FilesChanger.Extensions
             renamingDictionary = foo.Split('\n').ToList();
             Random rnd = new Random();
             
-            int lengthOfName = rnd.Next(1, 2);
+            int lengthOfName = rnd.Next(1, 3);
 
             for (int i = 0; i < lengthOfName; i++)
             {
                 int position = rnd.Next(0, renamingDictionary.Count);
 
                 string delimiter = lengthOfName > 1 && i < lengthOfName ? " " : "";
-
-                sb.Append($"{renamingDictionary[position].Trim(' ').Trim('\r')}{delimiter}");
+                sb.Append($"{renamingDictionary[position].Trim(new char[] {' ', '\r'})}{delimiter}");
             }
 
+            sb = new StringBuilder(sb.ToString().Trim(' '));
             sb.Append(extension);
 
             return sb.ToString();
