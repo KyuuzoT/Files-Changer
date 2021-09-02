@@ -14,7 +14,7 @@ namespace FilesChanger.Components
         private ProgressBar pbBar;
         private CheckedListBox filesList;
         private Label currentFile;
-        private FileInfo[] files;
+        private IEnumerable<FileInfo> files;
         private CheckBox renameFlag;
 
         internal void Init(ProgressBar bar, CheckedListBox listBox, Label label, CheckBox cbRename)
@@ -28,7 +28,7 @@ namespace FilesChanger.Components
         private void FillInFilesList()
         {
             DirectoryInfo di = new DirectoryInfo(pathToFiles);
-            files = di.GetFiles("*", SearchOption.AllDirectories);
+            files = di.GetFiles("*", SearchOption.AllDirectories).OrderBy(x => x.Name);
             int i = 0;
             foreach (var item in files)
             {
@@ -120,7 +120,7 @@ namespace FilesChanger.Components
             if (filesList.Items.Count > 0 && filesList.CheckedItems.Count > 0)
             {
                 Stopwatch watch = new Stopwatch();
-                pbBar = InitProgressBar(min: 0, max: files.Length, step: 1);
+                pbBar = InitProgressBar(min: 0, max: files.Count(), step: 1);
 
                 watch.Start();
                 ProcessFiles();
