@@ -28,7 +28,8 @@ namespace FilesChanger.Components
         private void FillInFilesList()
         {
             DirectoryInfo di = new DirectoryInfo(pathToFiles);
-            files = di.GetFiles("*", SearchOption.AllDirectories).OrderBy(x => x.Name);
+            //files = di.GetFiles("*", SearchOption.AllDirectories).OrderBy(x => x.Name);
+            files = di.GetFiles("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.CreationTime);
             int i = 0;
             foreach (var item in files)
             {

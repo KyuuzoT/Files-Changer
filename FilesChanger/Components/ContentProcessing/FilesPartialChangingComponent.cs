@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace FilesChanger.Components.ContentProcessing
 {
@@ -11,7 +12,7 @@ namespace FilesChanger.Components.ContentProcessing
         private static bool endOfFileFlag = false;
 
         private static int currentLength = 0;
-        private static int maxLength = 0;
+        private static long maxLength = 0;
         private static char[] buffer;
 
         internal static void PartialChangeFile(FileInfo file)
@@ -24,8 +25,9 @@ namespace FilesChanger.Components.ContentProcessing
                 {
                     if (maxLength == 0)
                     {
-                        maxLength = sr.ReadToEnd().Length;
-                        buffer = new char[1024];
+                        //maxLength = sr.ReadToEnd().Length;
+                        maxLength = file.Length;
+                        buffer = new char[1024*1024*128];
                     }
 
                     if(buffer.Length <= 0)
@@ -34,12 +36,14 @@ namespace FilesChanger.Components.ContentProcessing
                     }
 
                     buffer = PartialChangeSymbols(sr, buffer.Length);
+                    //buffer = await Task.Factory.StartNew(() => PartialChangeSymbols(sr, buffer.Length));
                     currentLength += buffer.Length;
                 }
 
                 using (var bw = new BinaryWriter(File.Open(file.FullName, FileMode.Open)))
                 {
                     PartialWriteSymbols(bw, buffer, seekOffset);
+                    //await Task.Factory.StartNew(() => PartialWriteSymbols(bw, buffer, seekOffset));
                     seekOffset += buffer.Length - 1;
                 }
 
