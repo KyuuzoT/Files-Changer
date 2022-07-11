@@ -18,7 +18,7 @@ namespace FilesChanger.Components.ContentProcessing
             }
 
             WriteSymbolsToFile(file);
-            strContent = string.Empty;
+            strContent = "";
         }
 
         private static void WriteSymbolsToFile(FileInfo file)

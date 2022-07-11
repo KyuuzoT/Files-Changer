@@ -43,7 +43,7 @@ namespace FilesChanger
         private void rbTopDirectory_CheckedChanged(object sender, EventArgs e)
         {
             //Cherry-pick
-            layout.DirectoryOptions = System.IO.SearchOption.AllDirectories;
+            layout.DirectoryOptions = System.IO.SearchOption.TopDirectoryOnly;
         }
 
         private void rbTopChildDirectories_CheckedChanged(object sender, EventArgs e)
