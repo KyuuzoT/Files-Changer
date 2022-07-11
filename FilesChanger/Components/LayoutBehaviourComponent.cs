@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FilesChanger.Components
@@ -16,6 +17,18 @@ namespace FilesChanger.Components
         private Label currentFile;
         private IEnumerable<FileInfo> files;
         private CheckBox renameFlag;
+        private SearchOption directoryOptions;
+        internal IEnumerable<FileInfo> Files
+        {
+            get { return files; }
+            set { files = value; }
+        }
+        
+        internal SearchOption DirectoryOptions
+        {
+            get { return directoryOptions; }
+            set { directoryOptions = value; }
+        }
 
         internal void Init(ProgressBar bar, CheckedListBox listBox, Label label, CheckBox cbRename)
         {
@@ -28,8 +41,8 @@ namespace FilesChanger.Components
         private void FillInFilesList()
         {
             DirectoryInfo di = new DirectoryInfo(pathToFiles);
-            //files = di.GetFiles("*", SearchOption.AllDirectories).OrderBy(x => x.Name);
-            files = di.GetFiles("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.CreationTime);
+            files = di.GetFiles("*", directoryOptions).OrderBy(x => x.CreationTime);
+            //files = di.GetFiles("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.CreationTime);
             int i = 0;
             foreach (var item in files)
             {
