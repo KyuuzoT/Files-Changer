@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -18,7 +19,7 @@ namespace FilesChanger.Components.ContentProcessing
             }
 
             WriteSymbolsToFile(file);
-            strContent = string.Empty;
+            strContent = "";
         }
 
         private static void WriteSymbolsToFile(FileInfo file)
@@ -29,18 +30,21 @@ namespace FilesChanger.Components.ContentProcessing
                 bw.Write(bytes);
             }
         }
-        
+
         private static void ChangeFileContentSymbols(StreamReader sr)
         {
             signsArray = default;
             strContent = sr.ReadToEnd();
             signsArray = strContent.ToArray();
+            var rnd = new Random();
+            int symbolsToChange = 2;
 
             for (int i = 0; i < signsArray.Length; i++)
             {
-                if (i % 2 == 0)
+                if (i % symbolsToChange == 0)
                 {
                     signsArray[i] = ReplacementChar;
+                    symbolsToChange = rnd.Next(0, 5);
                 }
             }
         }
