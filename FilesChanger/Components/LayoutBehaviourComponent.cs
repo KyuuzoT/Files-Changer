@@ -129,7 +129,7 @@ namespace FilesChanger.Components
             changer.ProccessRenamingFiles(checkedFiles);
         }
 
-        internal void ProcessStartButtonClick()
+        internal async Task ProcessStartButtonClick()
         {
             if (filesList.Items.Count > 0 && filesList.CheckedItems.Count > 0)
             {
