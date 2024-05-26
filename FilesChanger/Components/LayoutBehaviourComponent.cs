@@ -42,7 +42,6 @@ namespace FilesChanger.Components
         {
             DirectoryInfo di = new DirectoryInfo(pathToFiles);
             files = di.GetFiles("*", directoryOptions).OrderBy(x => x.CreationTime);
-            //files = di.GetFiles("*", SearchOption.TopDirectoryOnly).OrderBy(x => x.CreationTime);
             int i = 0;
             foreach (var item in files)
             {

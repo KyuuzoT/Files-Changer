@@ -46,6 +46,7 @@ namespace FilesChanger.Components.ContentProcessing
                     signsArray[i] = ReplacementChar;
                     symbolsToChange = rnd.Next(0, 5);
                 }
+                Console.WriteLine($"Symbols to change: {symbolsToChange}");
             }
         }
     }
