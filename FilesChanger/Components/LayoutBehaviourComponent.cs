@@ -11,166 +11,164 @@ namespace FilesChanger.Components
 {
     public class LayoutBehaviourComponent
     {
-        private string pathToFiles;
-        private ProgressBar pbBar;
-        private CheckedListBox filesList;
-        private Label currentFile;
-        private IEnumerable<FileInfo> files;
-        private CheckBox renameFlag;
-        private SearchOption directoryOptions;
+        private string _pathToFiles;
+        private ProgressBar _progressBar;
+        private CheckedListBox _fileList;
+        private Label _currentFileLabel;
+        private CheckBox _renameCheckBox;
+        private IEnumerable<FileInfo> _files;
+        private SearchOption _searchOption;
+
         internal IEnumerable<FileInfo> Files
         {
-            get { return files; }
-            set { files = value; }
+            get => _files;
+            set => _files = value;
         }
-        
+
         internal SearchOption DirectoryOptions
         {
-            get { return directoryOptions; }
-            set { directoryOptions = value; }
+            get => _searchOption;
+            set => _searchOption = value;
         }
 
-        internal void Init(ProgressBar bar, CheckedListBox listBox, Label label, CheckBox cbRename)
+        internal void InitializeUI(ProgressBar progressBar, CheckedListBox fileList, Label fileLabel, CheckBox renameCheckBox)
         {
-            pbBar = bar;
-            filesList = listBox;
-            currentFile = label;
-            renameFlag = cbRename;
+            _progressBar = progressBar;
+            _fileList = fileList;
+            _currentFileLabel = fileLabel;
+            _renameCheckBox = renameCheckBox;
         }
 
-        private void FillInFilesList()
+        internal void ConfirmRenameDeactivation()
         {
-            DirectoryInfo di = new DirectoryInfo(pathToFiles);
-            files = di.GetFiles("*", directoryOptions).OrderBy(x => x.CreationTime);
-            int i = 0;
-            foreach (var item in files)
+            if (!_renameCheckBox.Checked)
             {
-                filesList.Items.Insert(i++, item);
+                return;
+            }
+
+            const string message = "Переименование позволит надежнее затереть файлы. Вы уверены, что хотите отключить его?";
+            var result = MessageBox.Show(message, "Отключить переименование", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                _renameCheckBox.Checked = false;
             }
         }
 
-        internal void ProcessRenameCheckBoxClick()
+        internal void SelectFolderAndPopulateFiles()
         {
-            string message = "Переименование позволит надежнее затереть файлы. Вы уверены, что хотите отключить его?";
-            if (renameFlag.Checked)
+            using (var dialog = new FolderBrowserDialog())
             {
-                var result = MessageBox.Show(message, "Отключить переименование", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
+                if (dialog.ShowDialog() != DialogResult.OK)
                 {
-                    renameFlag.Checked = false;
                     return;
                 }
+
+                _pathToFiles = dialog.SelectedPath;
+                _fileList.Items.Clear();
+                LoadFileList();
             }
         }
 
-        internal void FillInListViewBox()
+        internal async Task ExecuteFileProcessingAsync()
         {
-            using (FolderBrowserDialog folderBrowser = new FolderBrowserDialog())
+            if (_fileList.Items.Count == 0 || _fileList.CheckedItems.Count == 0)
             {
-                if (folderBrowser.ShowDialog() == DialogResult.OK)
+                return;
+            }
+
+            _progressBar = SetupProgressBar(0, _files.Count(), 1);
+
+            var watch = Stopwatch.StartNew();
+            await ProcessFilesAsync();
+            watch.Stop();
+
+            ShowCompletionMessage(watch.Elapsed);
+            ResetUI();
+        }
+
+        internal void ToggleAllItems()
+        {
+            for (int i = 0; i < _fileList.Items.Count; i++)
+            {
+                if (_fileList.Items[i] == null)
                 {
-                    pathToFiles = folderBrowser.SelectedPath;
-                    filesList.Items.Clear();
-                    FillInFilesList();
+                    return;
                 }
+
+                bool isChecked = _fileList.GetItemChecked(i);
+                _fileList.SetItemChecked(i, !isChecked);
             }
         }
 
-        private void CheckItemInList(ref int index)
+        #region private methods
+        private void LoadFileList()
         {
-            currentFile.Text = $"Progress: {filesList.Items[index]}";
-            index++;
+            var directory = new DirectoryInfo(_pathToFiles);
+            _files = directory.GetFiles("*", _searchOption).OrderBy(f => f.CreationTime);
+
+            int index = 0;
+            foreach (var file in _files)
+                _fileList.Items.Insert(index++, file);
         }
 
-        private ProgressBar InitProgressBar(int min, int max, int step)
+        private ProgressBar SetupProgressBar(int min, int max, int step)
         {
-            ProgressBar bar = pbBar;
-            bar.Minimum = min;
-            bar.Maximum = max;
-            bar.Step = step;
-
-            return bar;
+            _progressBar.Minimum = min;
+            _progressBar.Maximum = max;
+            _progressBar.Step = step;
+            return _progressBar;
         }
 
-        private bool isItemChecked(FileInfo item)
-        {
-            int index = filesList.Items.IndexOf(item);
-
-            return filesList.GetItemChecked(index);
-        }
-
-        private void ProcessFiles()
+        private async Task ProcessFilesAsync()
         {
             FilesPartialChangingComponent.PartialReplacementChar = '*';
-            int itemIndex = 0;
 
-            foreach (var item in files)
+            int index = 0;
+            foreach (var file in _files)
             {
-                pbBar.PerformStep();
-                if (isItemChecked(item))
+                _progressBar.PerformStep();
+
+                if (IsFileChecked(file))
                 {
-                    FilesPartialChangingComponent.PartialChangeFile(item);
-                    CheckItemInList(ref itemIndex);
+                    await Task.Run(() => FilesPartialChangingComponent.PartialChangeFile(file));
+                    _currentFileLabel.Text = $"Progress: {_fileList.Items[index]}";
                 }
+
+                index++;
             }
 
-            if (renameFlag.Checked)
+            if (_renameCheckBox.Checked)
             {
-                RenameFiles(files);
-            }
-        }
-
-        private void RenameFiles(IEnumerable<FileInfo> files)
-        {
-            NameChangerComponent changer = new NameChangerComponent();
-            changer.Power = 7;
-            var checkedFiles = files.Where(x => isItemChecked(x)).ToList();
-            changer.ProccessRenamingFiles(checkedFiles);
-        }
-
-        internal async Task ProcessStartButtonClick()
-        {
-            if (filesList.Items.Count > 0 && filesList.CheckedItems.Count > 0)
-            {
-                Stopwatch watch = new Stopwatch();
-                pbBar = InitProgressBar(min: 0, max: files.Count(), step: 1);
-
-                watch.Start();
-                ProcessFiles();
-                watch.Stop();
-
-                PrintExecutionMessage(watch.Elapsed);
-                pbBar.Value = 0;
-                filesList.Items.Clear();
-                FillInFilesList();
+                RenameCheckedFiles();
             }
         }
 
-        private void PrintExecutionMessage(TimeSpan time)
+        private bool IsFileChecked(FileInfo file)
         {
-            string message = $"Job is done. Program execution time: {time}";
-            MessageBox.Show(message, "Done!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            int index = _fileList.Items.IndexOf(file);
+            return _fileList.GetItemChecked(index);
         }
 
-        internal void CheckAllItems()
+        private void RenameCheckedFiles()
         {
-            var localCopy = filesList.Items;
-            for (int i = 0; i < localCopy.Count; i++)
-            {
-                if (localCopy[i] == null)
-                {
-                    return;
-                }
-
-                if (!filesList.GetItemChecked(i))
-                {
-                    filesList.SetItemChecked(i, true);
-                }
-                else
-                {
-                    filesList.SetItemChecked(i, false);
-                }
-            }
+            var changer = new NameChangerComponent { Power = 7 };
+            var selectedFiles = _files.Where(IsFileChecked).ToList();
+            changer.ProccessRenamingFiles(selectedFiles);
         }
+
+        private void ShowCompletionMessage(TimeSpan duration)
+        {
+            string msg = $"Job is done. Program execution time: {duration}";
+            MessageBox.Show(msg, "Done!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void ResetUI()
+        {
+            _progressBar.Value = 0;
+            _fileList.Items.Clear();
+            LoadFileList();
+        }
+
+        #endregion
     }
 }
