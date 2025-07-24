@@ -1,11 +1,6 @@
 ﻿using FilesChanger.Components.ContentProcessing;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Text;
 
 namespace FilesChanger.Components
 {
@@ -121,7 +116,7 @@ namespace FilesChanger.Components
 
         private async Task ProcessFilesAsync()
         {
-            FilesPartialChangingComponent.PartialReplacementChar = '*';
+            //FilesPartialChangingComponent.PartialReplacementChar = '*';
 
             int index = 0;
             foreach (var file in _files)
@@ -130,7 +125,11 @@ namespace FilesChanger.Components
 
                 if (IsFileChecked(file))
                 {
-                    await Task.Run(() => FilesPartialChangingComponent.PartialChangeFile(file));
+                    await Task.Run(() => 
+                    {
+                        using var processor = new FilePartialProcessor('*', Encoding.UTF8);
+                        processor.ProcessFile(file);
+                    });
                     _currentFileLabel.Text = $"Progress: {_fileList.Items[index]}";
                 }
 
