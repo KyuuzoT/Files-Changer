@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FilesChanger.Components.ContentProcessing
 {
+    [Obsolete("Previous implementation")]
     public class FilesPartialChangingComponent
     {
         internal static char PartialReplacementChar = default;
@@ -19,54 +19,23 @@ namespace FilesChanger.Components.ContentProcessing
         {
             int seekOffset = 0;
             endOfFileFlag = false;
+            var errorIndex = 0;
             while (!endOfFileFlag)
             {
                 try
                 {
-                    using (var sr = new StreamReader(file.FullName))
-                    {
-                        if (maxLength == 0)
-                        {
-                            //maxLength = sr.ReadToEnd().Length;
-                            maxLength = file.Length;
-                            var bufferSize = 1024 * 1024 * 128;
-                            if (bufferSize < maxLength)
-                            {
-                                buffer = new char[bufferSize];
-                            }
-                            else
-                            {
-                                buffer = new char[maxLength];
-                            }
-                        }
-
-                        if (buffer.Length <= 0)
-                        {
-                            return;
-                        }
-
-                        buffer = PartialChangeSymbols(sr, buffer.Length);
-                        //buffer = await Task.Factory.StartNew(() => PartialChangeSymbols(sr, buffer.Length));
-                        currentLength += buffer.Length;
-                    }
-
-                    using (var bw = new BinaryWriter(File.Open(file.FullName, FileMode.Open)))
-                    {
-                        PartialWriteSymbols(bw, buffer, seekOffset);
-                        //await Task.Factory.StartNew(() => PartialWriteSymbols(bw, buffer, seekOffset));
-                        seekOffset += buffer.Length - 1;
-                        if (seekOffset >= maxLength || seekOffset < 0)
-                        {
-                            endOfFileFlag = true;
-                            maxLength = 0;
-                            currentLength = 0;
-                            buffer = Array.Empty<char>();
-                        }
-                    }
+                    ChangeFile(file, ref seekOffset);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
+                    if(errorIndex >= 5)
+                    {
+                        GC.Collect(GC.MaxGeneration); GC.WaitForPendingFinalizers();
+                        throw new Exception("Maximum number of tries reached!");
+                    }
+                    Console.Error.WriteLine(ex.ToString());
+                    ChangeFile(file, ref seekOffset);
+                    errorIndex++;
                 }
                 finally
                 {
@@ -76,7 +45,50 @@ namespace FilesChanger.Components.ContentProcessing
                         maxLength = 0;
                         currentLength = 0;
                         buffer = Array.Empty<char>();
+                        GC.Collect(GC.MaxGeneration);
                     }
+                }
+            }
+        }
+
+        private static void ChangeFile(FileInfo file, ref int seekOffset)
+        {
+            using (var sr = new StreamReader(file.FullName))
+            {
+                if (maxLength == 0)
+                {
+                    //maxLength = sr.ReadToEnd().Length;
+                    maxLength = file.Length;
+                    var bufferSize = 1024 * 1024 * 128;
+                    if (bufferSize < maxLength)
+                    {
+                        buffer = new char[bufferSize];
+                    }
+                    else
+                    {
+                        buffer = new char[maxLength];
+                    }
+                }
+
+                if (buffer.Length <= 0)
+                {
+                    return;
+                }
+
+                buffer = PartialChangeSymbols(sr, buffer.Length);
+                currentLength += buffer.Length;
+            }
+
+            using (var bw = new BinaryWriter(File.Open(file.FullName, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite)))
+            {
+                PartialWriteSymbols(bw, buffer, seekOffset);
+                seekOffset += buffer.Length - 1;
+                if (seekOffset >= maxLength || seekOffset < 0)
+                {
+                    endOfFileFlag = true;
+                    maxLength = 0;
+                    currentLength = 0;
+                    buffer = Array.Empty<char>();
                 }
             }
         }
