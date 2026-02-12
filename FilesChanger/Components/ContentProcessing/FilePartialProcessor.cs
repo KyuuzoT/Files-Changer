@@ -73,20 +73,13 @@ namespace FilesChanger.Components.ContentProcessing
 
         private void ProcessChunk(int bytesRead, long globalPosition)
         {
-            string chunk = _encoding.GetString(_buffer, 0, bytesRead);
-            char[] chars = chunk.ToCharArray();
-
-            for (int i = 0; i < chars.Length; i++)
+            for (int i = 0; i < bytesRead; i++)
             {
-                // Use global position for consistent replacement
-                if ((globalPosition + i) % 2 == 0)
+                if((globalPosition + i) % 2 == 0)
                 {
-                    chars[i] = _replacementChar;
+                    _buffer[i] = (byte)_replacementChar;
                 }
             }
-
-            byte[] processedBytes = _encoding.GetBytes(chars);
-            Buffer.BlockCopy(processedBytes, 0, _buffer, 0, processedBytes.Length);
         }
 
         private void WriteChunk(int bytesRead, long position)
