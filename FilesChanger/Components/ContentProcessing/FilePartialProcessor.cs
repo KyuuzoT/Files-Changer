@@ -8,13 +8,11 @@ namespace FilesChanger.Components.ContentProcessing
         private const int BufferSize = 128 * 1024; // 128 KB
         private readonly byte[] _buffer = new byte[BufferSize];
         private readonly char _replacementChar;
-        private readonly Encoding _encoding;
         private FileStream? _fileStream;
 
         public FilePartialProcessor(char replacementChar, Encoding encoding)
         {
             _replacementChar = replacementChar;
-            _encoding = encoding;
         }
 
         public void ProcessFile(FileInfo file)
