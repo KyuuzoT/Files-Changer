@@ -1,17 +1,15 @@
 ﻿using FilesChanger.Components;
-using System;
-using System.Windows.Forms;
 
 namespace FilesChanger
 {
     public partial class FilesChanger : Form
     {
-        private readonly LayoutBehaviourComponent layout = new LayoutBehaviourComponent();
+        private readonly LayoutBehaviourComponent layout;
 
         public FilesChanger()
         {
             InitializeComponent();
-            layout.InitializeUI(pbBar, FilesListView, CurrentFile, cbRename);
+            layout = new LayoutBehaviourComponent(pbBar, FilesListView, CurrentFile, cbRename);
         }
 
         private void btnPath_Click(object sender, EventArgs e)
@@ -30,11 +28,11 @@ namespace FilesChanger
 
             if (FilesListView.CheckedItems.Count == 0)
             {
-                btnCheckAll.Text = "Выбрать все";
+                btnCheckAll.Text = "Select all";
                 return;
             }
 
-            btnCheckAll.Text = btnCheckAll.Text.Equals("Выбрать все") ? "Снять все" : "Выбрать все";
+            btnCheckAll.Text = btnCheckAll.Text.Equals("Select all") ? "Deselect all" : "Select all";
         }
 
         private void cbRename_MouseDown(object sender, MouseEventArgs e)
@@ -44,12 +42,12 @@ namespace FilesChanger
 
         private void rbTopDirectory_CheckedChanged(object sender, EventArgs e)
         {
-            layout.DirectoryOptions = System.IO.SearchOption.TopDirectoryOnly;
+            layout.DirectoryOptions = SearchOption.TopDirectoryOnly;
         }
 
         private void rbTopChildDirectories_CheckedChanged(object sender, EventArgs e)
         {
-            layout.DirectoryOptions = System.IO.SearchOption.AllDirectories;
+            layout.DirectoryOptions = SearchOption.AllDirectories;
         }
     }
 }
