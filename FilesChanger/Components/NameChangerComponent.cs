@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using Microsoft.VisualBasic.FileIO;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualBasic.FileIO;
 
 namespace FilesChanger.Components
 {
