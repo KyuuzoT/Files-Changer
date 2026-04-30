@@ -92,10 +92,10 @@
             // 
             // groupBox1
             // 
+            resources.ApplyResources(groupBox1, "groupBox1");
             groupBox1.Controls.Add(rbTopChildDirectories);
             groupBox1.Controls.Add(rbTopDirectory);
             groupBox1.Controls.Add(cbRename);
-            resources.ApplyResources(groupBox1, "groupBox1");
             groupBox1.Name = "groupBox1";
             groupBox1.TabStop = false;
             // 
