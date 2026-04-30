@@ -73,7 +73,7 @@
             btnPath.Name = "btnPath";
             btnPath.Size = new Size(282, 92);
             btnPath.TabIndex = 2;
-            btnPath.Text = "Открыть папку";
+            btnPath.Text = "Open Folder";
             btnPath.UseVisualStyleBackColor = true;
             btnPath.Click += btnPath_Click;
             // 
@@ -86,7 +86,7 @@
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(282, 92);
             btnStart.TabIndex = 3;
-            btnStart.Text = "Запустить";
+            btnStart.Text = "Start";
             btnStart.UseVisualStyleBackColor = true;
             btnStart.Click += button2_Click;
             // 
@@ -97,9 +97,9 @@
             CurrentFile.Location = new Point(20, 734);
             CurrentFile.Margin = new Padding(4, 0, 4, 0);
             CurrentFile.Name = "CurrentFile";
-            CurrentFile.Size = new Size(103, 30);
+            CurrentFile.Size = new Size(92, 30);
             CurrentFile.TabIndex = 4;
-            CurrentFile.Text = "Прогресс";
+            CurrentFile.Text = "Progress";
             // 
             // btnCheckAll
             // 
@@ -109,7 +109,7 @@
             btnCheckAll.Name = "btnCheckAll";
             btnCheckAll.Size = new Size(198, 65);
             btnCheckAll.TabIndex = 5;
-            btnCheckAll.Text = "Выбрать все";
+            btnCheckAll.Text = "Select all";
             btnCheckAll.UseVisualStyleBackColor = true;
             btnCheckAll.Click += btnCheckAll_Click;
             // 
@@ -121,9 +121,9 @@
             cbRename.Location = new Point(12, 44);
             cbRename.Margin = new Padding(6, 7, 6, 7);
             cbRename.Name = "cbRename";
-            cbRename.Size = new Size(304, 34);
+            cbRename.Size = new Size(229, 34);
             cbRename.TabIndex = 6;
-            cbRename.Text = "Включить переименование";
+            cbRename.Text = "Enable file renaming";
             cbRename.UseVisualStyleBackColor = true;
             cbRename.MouseDown += cbRename_MouseDown;
             // 
@@ -139,7 +139,7 @@
             groupBox1.Size = new Size(518, 353);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Опции";
+            groupBox1.Text = "Settings";
             // 
             // rbTopChildDirectories
             // 
@@ -147,10 +147,10 @@
             rbTopChildDirectories.Location = new Point(12, 155);
             rbTopChildDirectories.Margin = new Padding(6, 7, 6, 7);
             rbTopChildDirectories.Name = "rbTopChildDirectories";
-            rbTopChildDirectories.Size = new Size(379, 34);
+            rbTopChildDirectories.Size = new Size(257, 34);
             rbTopChildDirectories.TabIndex = 8;
             rbTopChildDirectories.TabStop = true;
-            rbTopChildDirectories.Text = "Родительский и дочерний каталоги";
+            rbTopChildDirectories.Text = "Parent and child folders";
             rbTopChildDirectories.UseVisualStyleBackColor = true;
             rbTopChildDirectories.CheckedChanged += rbTopChildDirectories_CheckedChanged;
             // 
@@ -160,10 +160,10 @@
             rbTopDirectory.Location = new Point(12, 99);
             rbTopDirectory.Margin = new Padding(6, 7, 6, 7);
             rbTopDirectory.Name = "rbTopDirectory";
-            rbTopDirectory.Size = new Size(249, 34);
+            rbTopDirectory.Size = new Size(202, 34);
             rbTopDirectory.TabIndex = 7;
             rbTopDirectory.TabStop = true;
-            rbTopDirectory.Text = "Родительский каталог";
+            rbTopDirectory.Text = "Parent folder only";
             rbTopDirectory.UseVisualStyleBackColor = true;
             rbTopDirectory.CheckedChanged += rbTopDirectory_CheckedChanged;
             // 
@@ -193,7 +193,7 @@
             bLanguageRu.Name = "bLanguageRu";
             bLanguageRu.Size = new Size(58, 40);
             bLanguageRu.TabIndex = 1;
-            bLanguageRu.Text = "Ru";
+            bLanguageRu.Text = "Ру";
             bLanguageRu.UseVisualStyleBackColor = true;
             // 
             // FilesChanger
