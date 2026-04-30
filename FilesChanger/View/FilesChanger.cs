@@ -1,13 +1,16 @@
 ﻿using FilesChanger.Components;
+using System.Configuration;
 
 namespace FilesChanger
 {
     public partial class FilesChanger : Form
     {
         private readonly LayoutBehaviourComponent layout;
+        private readonly Thread currentThread;
 
-        public FilesChanger()
+        public FilesChanger(Thread currentThread)
         {
+            this.currentThread = currentThread;
             InitializeComponent();
             bLanguageEn.Enabled = false;
             layout = new LayoutBehaviourComponent(pbBar, FilesListView, CurrentFile, cbRename);
@@ -56,6 +59,10 @@ namespace FilesChanger
             if(bLanguageEn.Enabled)
             {
                 bLanguageEn.Enabled = false;
+                var language = "en";
+
+                currentThread.CurrentCulture = new System.Globalization.CultureInfo(language);
+                currentThread.CurrentUICulture = new System.Globalization.CultureInfo(language);
                 bLanguageRu.Enabled = true;
             }
         }
@@ -65,6 +72,10 @@ namespace FilesChanger
             if (bLanguageRu.Enabled)
             {
                 bLanguageRu.Enabled = false;
+                var language = "ru";
+
+                currentThread.CurrentCulture = new System.Globalization.CultureInfo(language);
+                currentThread.CurrentUICulture = new System.Globalization.CultureInfo(language);
                 bLanguageEn.Enabled = true;
             }
         }
