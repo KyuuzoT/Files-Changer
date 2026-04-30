@@ -9,6 +9,7 @@ namespace FilesChanger
         public FilesChanger()
         {
             InitializeComponent();
+            bLanguageEn.Enabled = false;
             layout = new LayoutBehaviourComponent(pbBar, FilesListView, CurrentFile, cbRename);
         }
 
@@ -48,6 +49,24 @@ namespace FilesChanger
         private void rbTopChildDirectories_CheckedChanged(object sender, EventArgs e)
         {
             layout.DirectoryOptions = SearchOption.AllDirectories;
+        }
+
+        private void EnLanguageButton_Click(object sender, EventArgs e)
+        {
+            if(bLanguageEn.Enabled)
+            {
+                bLanguageEn.Enabled = false;
+                bLanguageRu.Enabled = true;
+            }
+        }
+
+        private void RuLanguageButton_Click(object sender, EventArgs e)
+        {
+            if (bLanguageRu.Enabled)
+            {
+                bLanguageRu.Enabled = false;
+                bLanguageEn.Enabled = true;
+            }
         }
     }
 }

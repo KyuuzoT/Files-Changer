@@ -40,8 +40,8 @@
             rbTopChildDirectories = new RadioButton();
             rbTopDirectory = new RadioButton();
             gbLanguageChange = new GroupBox();
-            bLanguageEn = new Button();
             bLanguageRu = new Button();
+            bLanguageEn = new Button();
             groupBox1.SuspendLayout();
             gbLanguageChange.SuspendLayout();
             SuspendLayout();
@@ -53,7 +53,7 @@
             pbBar.Margin = new Padding(4, 5, 4, 5);
             pbBar.Name = "pbBar";
             pbBar.Size = new Size(1162, 44);
-            pbBar.TabIndex = 0;
+            pbBar.TabIndex = 8;
             // 
             // FilesListView
             // 
@@ -64,7 +64,7 @@
             FilesListView.Margin = new Padding(4, 5, 4, 5);
             FilesListView.Name = "FilesListView";
             FilesListView.Size = new Size(630, 548);
-            FilesListView.TabIndex = 1;
+            FilesListView.TabIndex = 3;
             // 
             // btnPath
             // 
@@ -85,7 +85,7 @@
             btnStart.Margin = new Padding(4, 5, 4, 5);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(282, 92);
-            btnStart.TabIndex = 3;
+            btnStart.TabIndex = 4;
             btnStart.Text = "Start";
             btnStart.UseVisualStyleBackColor = true;
             btnStart.Click += button2_Click;
@@ -98,7 +98,7 @@
             CurrentFile.Margin = new Padding(4, 0, 4, 0);
             CurrentFile.Name = "CurrentFile";
             CurrentFile.Size = new Size(92, 30);
-            CurrentFile.TabIndex = 4;
+            CurrentFile.TabIndex = 7;
             CurrentFile.Text = "Progress";
             // 
             // btnCheckAll
@@ -108,7 +108,7 @@
             btnCheckAll.Margin = new Padding(6, 7, 6, 7);
             btnCheckAll.Name = "btnCheckAll";
             btnCheckAll.Size = new Size(198, 65);
-            btnCheckAll.TabIndex = 5;
+            btnCheckAll.TabIndex = 6;
             btnCheckAll.Text = "Select all";
             btnCheckAll.UseVisualStyleBackColor = true;
             btnCheckAll.Click += btnCheckAll_Click;
@@ -122,7 +122,7 @@
             cbRename.Margin = new Padding(6, 7, 6, 7);
             cbRename.Name = "cbRename";
             cbRename.Size = new Size(229, 34);
-            cbRename.TabIndex = 6;
+            cbRename.TabIndex = 0;
             cbRename.Text = "Enable file renaming";
             cbRename.UseVisualStyleBackColor = true;
             cbRename.MouseDown += cbRename_MouseDown;
@@ -137,7 +137,7 @@
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(6, 7, 6, 7);
             groupBox1.Size = new Size(518, 353);
-            groupBox1.TabIndex = 7;
+            groupBox1.TabIndex = 5;
             groupBox1.TabStop = false;
             groupBox1.Text = "Settings";
             // 
@@ -148,7 +148,7 @@
             rbTopChildDirectories.Margin = new Padding(6, 7, 6, 7);
             rbTopChildDirectories.Name = "rbTopChildDirectories";
             rbTopChildDirectories.Size = new Size(257, 34);
-            rbTopChildDirectories.TabIndex = 8;
+            rbTopChildDirectories.TabIndex = 2;
             rbTopChildDirectories.TabStop = true;
             rbTopChildDirectories.Text = "Parent and child folders";
             rbTopChildDirectories.UseVisualStyleBackColor = true;
@@ -161,7 +161,7 @@
             rbTopDirectory.Margin = new Padding(6, 7, 6, 7);
             rbTopDirectory.Name = "rbTopDirectory";
             rbTopDirectory.Size = new Size(202, 34);
-            rbTopDirectory.TabIndex = 7;
+            rbTopDirectory.TabIndex = 1;
             rbTopDirectory.TabStop = true;
             rbTopDirectory.Text = "Parent folder only";
             rbTopDirectory.UseVisualStyleBackColor = true;
@@ -174,18 +174,9 @@
             gbLanguageChange.Location = new Point(1030, 0);
             gbLanguageChange.Name = "gbLanguageChange";
             gbLanguageChange.Size = new Size(150, 81);
-            gbLanguageChange.TabIndex = 8;
+            gbLanguageChange.TabIndex = 1;
             gbLanguageChange.TabStop = false;
             gbLanguageChange.Text = "Language";
-            // 
-            // bLanguageEn
-            // 
-            bLanguageEn.Location = new Point(14, 35);
-            bLanguageEn.Name = "bLanguageEn";
-            bLanguageEn.Size = new Size(58, 40);
-            bLanguageEn.TabIndex = 0;
-            bLanguageEn.Text = "En";
-            bLanguageEn.UseVisualStyleBackColor = true;
             // 
             // bLanguageRu
             // 
@@ -195,6 +186,17 @@
             bLanguageRu.TabIndex = 1;
             bLanguageRu.Text = "Ру";
             bLanguageRu.UseVisualStyleBackColor = true;
+            bLanguageRu.Click += RuLanguageButton_Click;
+            // 
+            // bLanguageEn
+            // 
+            bLanguageEn.Location = new Point(14, 35);
+            bLanguageEn.Name = "bLanguageEn";
+            bLanguageEn.Size = new Size(58, 40);
+            bLanguageEn.TabIndex = 0;
+            bLanguageEn.Text = "En";
+            bLanguageEn.UseVisualStyleBackColor = true;
+            bLanguageEn.Click += EnLanguageButton_Click;
             // 
             // FilesChanger
             // 
