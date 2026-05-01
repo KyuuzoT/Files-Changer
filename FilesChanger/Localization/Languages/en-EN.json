@@ -1,0 +1,70 @@
+{
+  "Localization": {
+    "English": {
+      "Strings": [
+        {
+          "Element": "FilesChanger",
+          "TextMain": "Kyuuzo's File Changer",
+          "TextVariants": []
+        },
+        {
+          "Element": "gbLanguageChange",
+          "TextMain": "Language",
+          "TextVariants": []
+        },
+        {
+          "Element": "bLanguageEn",
+          "TextMain": "En",
+          "TextVariants": []
+        },
+        {
+          "Element": "bLanguageRu",
+          "TextMain": "Ру",
+          "TextVariants": []
+        },
+        {
+          "Element": "btnPath",
+          "TextMain": "Open Folder",
+          "TextVariants": []
+        },
+        {
+          "Element": "btnStart",
+          "TextMain": "Start",
+          "TextVariants": []
+        },
+        {
+          "Element": "groupBox1",
+          "TextMain": "Settings",
+          "TextVariants": []
+        },
+        {
+          "Element": "cbRename",
+          "TextMain": "Enable file renaming",
+          "TextVariants": []
+        },
+        {
+          "Element": "rbTopDirectory",
+          "TextMain": "Parent folder only",
+          "TextVariants": []
+        },
+        {
+          "Element": "rbTopChildDirectories",
+          "TextMain": "Parent and child folders",
+          "TextVariants": []
+        },
+        {
+          "Element": "btnCheckAll",
+          "TextMain": "Select all",
+          "TextVariants": [
+            "Deselect all"
+          ]
+        },
+        {
+          "Element": "CurrentFile",
+          "TextMain": "Progress",
+          "TextVariants": []
+        }
+      ]
+    }
+  }
+}

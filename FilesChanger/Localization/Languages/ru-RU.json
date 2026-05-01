@@ -1,0 +1,70 @@
+{
+  "Localization": {
+    "Russian": {
+      "Strings": [
+        {
+          "Element": "FilesChanger",
+          "TextMain": "Kyuuzo's File Changer",
+          "TextVariants": []
+        },
+        {
+          "Element": "gbLanguageChange",
+          "TextMain": "Language",
+          "TextVariants": []
+        },
+        {
+          "Element": "bLanguageEn",
+          "TextMain": "En",
+          "TextVariants": []
+        },
+        {
+          "Element": "bLanguageRu",
+          "TextMain": "Ру",
+          "TextVariants": []
+        },
+        {
+          "Element": "btnPath",
+          "TextMain": "Открыть папку",
+          "TextVariants": []
+        },
+        {
+          "Element": "btnStart",
+          "TextMain": "Запустить",
+          "TextVariants": []
+        },
+        {
+          "Element": "groupBox1",
+          "TextMain": "Опции",
+          "TextVariants": []
+        },
+        {
+          "Element": "cbRename",
+          "TextMain": "Включить переименование",
+          "TextVariants": []
+        },
+        {
+          "Element": "rbTopDirectory",
+          "TextMain": "Родительский каталог",
+          "TextVariants": []
+        },
+        {
+          "Element": "rbTopChildDirectories",
+          "TextMain": "Родительский и дочерний каталоги",
+          "TextVariants": []
+        },
+        {
+          "Element": "btnCheckAll",
+          "TextMain": "Выбрать все",
+          "TextVariants": [
+            "Снять все"
+          ]
+        },
+        {
+          "Element": "CurrentFile",
+          "TextMain": "Прогресс",
+          "TextVariants": []
+        }
+      ]
+    }
+  }
+}
