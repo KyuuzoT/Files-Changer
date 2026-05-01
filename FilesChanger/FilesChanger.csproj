@@ -13,14 +13,26 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <None Remove="Localization\en-EN.json" />
+    <None Remove="Localization\ru-RU.json" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <Content Include="Dictionary\dict.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Jordanfc-Smile-Change-thing.ico" />
+    <Content Include="Localization\Languages\en-EN.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Localization\Languages\ru-RU.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="morelinq" Version="3.3.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   

@@ -121,4 +121,10 @@
   <data name="dict" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\dictionary\dict.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="en-EN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Release\net8.0-windows\Localization\Languages\en-EN.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ru-RU" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Release\net8.0-windows\Localization\Languages\ru-RU.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
