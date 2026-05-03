@@ -26,13 +26,36 @@ namespace FilesChanger.Localization
             currentLanguage = language;
         }
 
-        public IEnumerable<LocalizedStringModel> GetLocalizedStrings()
+        public LocalizedStringModel GetElement(string elementName)
+        {
+            var locStrings = GetLocalizedStrings();
+
+            var element = locStrings.FirstOrDefault(x => x?.Element != null && x.Element.Equals(elementName));
+
+            return element ?? throw new NullReferenceException("An element with such name was not found or localization does not contain elements");
+        }
+
+        private IEnumerable<LocalizedStringModel> GetLocalizedStrings()
         {
             var model = GetLocalizationModelFromJson();
 
             var language = GetLanguage(model);
 
             return language.LocalizedStrings ?? [];
+        }
+
+        private LocalizationModel GetLocalizationModelFromJson()
+        {
+            var localizationFileName = currentLanguage switch
+            {
+                AvailableLanguages.English => "en-EN",
+                AvailableLanguages.Russian => "ru-RU",
+                _ => "en-EN"
+            };
+
+            string json = File.ReadAllText(Path.GetFullPath($"./Localization/Languages/{localizationFileName}.json"));
+            return JsonConvert.DeserializeObject<LocalizationRootModel>(json)?.Localization ??
+                throw new NullReferenceException("Localization file not found or malformed.");
         }
 
         private LanguageModel GetLanguage(LocalizationModel model)
@@ -49,20 +72,5 @@ namespace FilesChanger.Localization
 
             throw new NullReferenceException("Unable to locate acceptable language. Probably not found or malformed localization file.");
         }
-
-        private LocalizationModel GetLocalizationModelFromJson()
-        {
-            var localizationFileName = currentLanguage switch
-            {
-                AvailableLanguages.English => "en-EN",
-                AvailableLanguages.Russian => "ru-RU",
-                _ => "en-EN"
-            };
-
-            string json = File.ReadAllText(Path.GetFullPath($"./Localization/Languages/{localizationFileName}.json"));
-            return JsonConvert.DeserializeObject<LocalizationRootModel>(json)?.Localization ?? 
-                throw new NullReferenceException("Localization file not found or malformed.");
-        }
-
     }
 }

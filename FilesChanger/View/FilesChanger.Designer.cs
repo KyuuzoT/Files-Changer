@@ -77,7 +77,7 @@ namespace FilesChanger
             btnPath.TabIndex = 2;
             btnPath.Text = "Open Folder";
             btnPath.UseVisualStyleBackColor = true;
-            btnPath.Click += btnPath_Click;
+            btnPath.Click += BtnPath_Click;
             // 
             // btnStart
             // 
@@ -90,7 +90,7 @@ namespace FilesChanger
             btnStart.TabIndex = 4;
             btnStart.Text = "Start";
             btnStart.UseVisualStyleBackColor = true;
-            btnStart.Click += button2_Click;
+            btnStart.Click += BtnStart_Click;
             // 
             // CurrentFile
             // 
@@ -113,7 +113,7 @@ namespace FilesChanger
             btnCheckAll.TabIndex = 6;
             btnCheckAll.Text = "Select all";
             btnCheckAll.UseVisualStyleBackColor = true;
-            btnCheckAll.Click += btnCheckAll_Click;
+            btnCheckAll.Click += BtnCheckAll_Click;
             // 
             // cbRename
             // 
@@ -127,7 +127,7 @@ namespace FilesChanger
             cbRename.TabIndex = 0;
             cbRename.Text = "Enable file renaming";
             cbRename.UseVisualStyleBackColor = true;
-            cbRename.MouseDown += cbRename_MouseDown;
+            cbRename.MouseDown += CbRename_MouseDown;
             // 
             // groupBox1
             // 
@@ -154,7 +154,7 @@ namespace FilesChanger
             rbTopChildDirectories.TabStop = true;
             rbTopChildDirectories.Text = "Parent and child folders";
             rbTopChildDirectories.UseVisualStyleBackColor = true;
-            rbTopChildDirectories.CheckedChanged += rbTopChildDirectories_CheckedChanged;
+            rbTopChildDirectories.CheckedChanged += RbTopChildDirectories_CheckedChanged;
             // 
             // rbTopDirectory
             // 
@@ -167,7 +167,7 @@ namespace FilesChanger
             rbTopDirectory.TabStop = true;
             rbTopDirectory.Text = "Parent folder only";
             rbTopDirectory.UseVisualStyleBackColor = true;
-            rbTopDirectory.CheckedChanged += rbTopDirectory_CheckedChanged;
+            rbTopDirectory.CheckedChanged += RbTopDirectory_CheckedChanged;
             // 
             // gbLanguageChange
             // 

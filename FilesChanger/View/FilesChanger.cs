@@ -8,7 +8,6 @@ namespace FilesChanger
     {
         private readonly LayoutBehaviourComponent layout;
         private LocalizationHandler localizationHandler;
-        private IEnumerable<LocalizedStringModel> LanguageStrings = [];
 
         public FilesChanger()
         {
@@ -16,45 +15,54 @@ namespace FilesChanger
 
             bLanguageEn.Enabled = false;
             localizationHandler = new LocalizationHandler(AvailableLanguages.English);
-            LanguageStrings = [.. localizationHandler.GetLocalizedStrings()];
 
             layout = new LayoutBehaviourComponent(pbBar, FilesListView, CurrentFile, cbRename);
         }
 
-        private void btnPath_Click(object sender, EventArgs e)
+        private void BtnPath_Click(object sender, EventArgs e)
         {
             layout.SelectFolderAndPopulateFiles();
         }
 
-        private async void button2_Click(object sender, EventArgs e)
+        private async void BtnStart_Click(object sender, EventArgs e)
         {
             await layout.ExecuteFileProcessingAsync();
         }
 
-        private void btnCheckAll_Click(object sender, EventArgs e)
+        private void BtnCheckAll_Click(object sender, EventArgs e)
         {
             layout.ToggleAllItems();
+            var initialText = localizationHandler.GetElement(nameof(btnCheckAll)).TextMain;
+            var variantText = localizationHandler.GetElement(nameof(btnCheckAll)).TextVariants?.FirstOrDefault();
 
             if (FilesListView.CheckedItems.Count == 0)
             {
-                btnCheckAll.Text = "Select all";
+                //btnCheckAll.Text = "Select all";
+                btnCheckAll.Text = initialText;
+                // TODO: Come up with mechanism that will ensure Refresh() on all localized elements
+                // as soon as the language button pressed!
+                Refresh();
                 return;
             }
 
-            btnCheckAll.Text = btnCheckAll.Text.Equals("Select all") ? "Deselect all" : "Select all";
+            btnCheckAll.Text = 
+                btnCheckAll.Text.Equals(initialText) && !string.IsNullOrEmpty(variantText) ?
+                variantText : 
+                initialText;
+            Refresh();
         }
 
-        private void cbRename_MouseDown(object sender, MouseEventArgs e)
+        private void CbRename_MouseDown(object sender, MouseEventArgs e)
         {
             layout.ConfirmRenameDeactivation();
         }
 
-        private void rbTopDirectory_CheckedChanged(object sender, EventArgs e)
+        private void RbTopDirectory_CheckedChanged(object sender, EventArgs e)
         {
             layout.DirectoryOptions = SearchOption.TopDirectoryOnly;
         }
 
-        private void rbTopChildDirectories_CheckedChanged(object sender, EventArgs e)
+        private void RbTopChildDirectories_CheckedChanged(object sender, EventArgs e)
         {
             layout.DirectoryOptions = SearchOption.AllDirectories;
         }
@@ -65,7 +73,6 @@ namespace FilesChanger
             if(bLanguageEn.Enabled)
             {
                 bLanguageEn.Enabled = false;
-                LanguageStrings = [.. localizationHandler.GetLocalizedStrings()];
                 bLanguageRu.Enabled = true;
             }
         }
@@ -76,7 +83,6 @@ namespace FilesChanger
             if (bLanguageRu.Enabled)
             {
                 bLanguageRu.Enabled = false;
-                LanguageStrings = [.. localizationHandler.GetLocalizedStrings()];
                 bLanguageEn.Enabled = true;
             }
         }
