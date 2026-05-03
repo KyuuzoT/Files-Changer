@@ -6,7 +6,8 @@ namespace FilesChanger.Components
     public class NameChangerComponent
     {
         public int Power { get; set; }
-        private List<string> renamingDictionary = new List<string>();
+        private List<string> renamingDictionary = [];
+        private static readonly char[] trimChars = [' ', '\r'];
 
         public void ProccessRenamingFiles(IEnumerable<FileInfo> files)
         {
@@ -37,17 +38,17 @@ namespace FilesChanger.Components
         private string CreateNewFileInformation(FileInfo file, out string newName)
         {
             newName = GetNewName(file.Extension);
-            string oldPath = file.FullName;
-            string newPath = oldPath.Replace(file.Name, newName);
+            var oldPath = file.FullName;
+            var newPath = oldPath.Replace(file.Name, newName);
             return newPath;
         }
 
         private string GetNewName(string extension)
         {
-            StringBuilder sb = new StringBuilder();
-            string foo = Properties.Resources.dict;
-            renamingDictionary = foo.Split('\n').ToList();
-            Random rnd = new Random();
+            var sb = new StringBuilder();
+            var renamingDataSource = Properties.Resources.dict;
+            renamingDictionary = [.. renamingDataSource.Split('\n')];
+            var rnd = new Random();
             
             int lengthOfName = rnd.Next(1, 3);
 
@@ -56,7 +57,7 @@ namespace FilesChanger.Components
                 int position = rnd.Next(0, renamingDictionary.Count);
 
                 string delimiter = lengthOfName > 1 && i < lengthOfName ? " " : "";
-                sb.Append($"{renamingDictionary[position].Trim(new char[] {' ', '\r'})}{delimiter}");
+                sb.Append($"{renamingDictionary[position].Trim(trimChars)}{delimiter}");
             }
 
             sb = new StringBuilder(sb.ToString().Trim(' '));
