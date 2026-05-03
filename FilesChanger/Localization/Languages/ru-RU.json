@@ -19,49 +19,49 @@
         },
         {
           "Element": "bLanguageRu",
-          "TextMain": "Ру",
+          "TextMain": "Р Сѓ",
           "TextVariants": []
         },
         {
           "Element": "btnPath",
-          "TextMain": "Открыть папку",
+          "TextMain": "РћС‚РєСЂС‹С‚СЊ РїР°РїРєСѓ",
           "TextVariants": []
         },
         {
           "Element": "btnStart",
-          "TextMain": "Запустить",
+          "TextMain": "Р—Р°РїСѓСЃС‚РёС‚СЊ",
           "TextVariants": []
         },
         {
           "Element": "groupBox1",
-          "TextMain": "Опции",
+          "TextMain": "РћРїС†РёРё",
           "TextVariants": []
         },
         {
           "Element": "cbRename",
-          "TextMain": "Включить переименование",
+          "TextMain": "Р’РєР»СЋС‡РёС‚СЊ РїРµСЂРµРёРјРµРЅРѕРІР°РЅРёРµ",
           "TextVariants": []
         },
         {
           "Element": "rbTopDirectory",
-          "TextMain": "Родительский каталог",
+          "TextMain": "Р РѕРґРёС‚РµР»СЊСЃРєРёР№ РєР°С‚Р°Р»РѕРі",
           "TextVariants": []
         },
         {
           "Element": "rbTopChildDirectories",
-          "TextMain": "Родительский и дочерний каталоги",
+          "TextMain": "Р РѕРґРёС‚РµР»СЊСЃРєРёР№ Рё РґРѕС‡РµСЂРЅРёР№ РєР°С‚Р°Р»РѕРіРё",
           "TextVariants": []
         },
         {
           "Element": "btnCheckAll",
-          "TextMain": "Выбрать все",
+          "TextMain": "Р’С‹Р±СЂР°С‚СЊ РІСЃРµ",
           "TextVariants": [
-            "Снять все"
+            "РЎРЅСЏС‚СЊ РІСЃРµ"
           ]
         },
         {
           "Element": "CurrentFile",
-          "TextMain": "Прогресс",
+          "TextMain": "РџСЂРѕРіСЂРµСЃСЃ",
           "TextVariants": []
         }
       ]
