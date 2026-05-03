@@ -1,10 +1,5 @@
 ﻿using FilesChanger.Localization.Models;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FilesChanger.Localization
 {
@@ -35,21 +30,38 @@ namespace FilesChanger.Localization
         {
             var model = GetLocalizationModelFromJson();
 
-            var currentLocale = currentLanguage switch
-            {
-                AvailableLanguages.Russian => model.RussianLocale,
-                AvailableLanguages.English => model.EnglishLocale,
-                _ => model.EnglishLocale
-            } 
-            ?? throw new Exception("Application was unable to locate language.");
+            var language = GetLanguage(model);
 
-            return currentLocale.LocalizedStrings ?? throw new Exception("Current localization contains no language-specific strings.");
+            return language.LocalizedStrings ?? [];
+        }
+
+        private LanguageModel GetLanguage(LocalizationModel model)
+        {
+            if(model.RussianLocale == null && model.EnglishLocale != null)
+            {
+                return model.EnglishLocale;
+            }
+
+            if (model.EnglishLocale == null && model.RussianLocale != null)
+            {
+                return model.RussianLocale;
+            }
+
+            throw new NullReferenceException("Unable to locate acceptable language. Probably not found or malformed localization file.");
         }
 
         private LocalizationModel GetLocalizationModelFromJson()
         {
-            string json = string.Empty;
-            return JsonConvert.DeserializeObject<LocalizationModel>(json);
+            var localizationFileName = currentLanguage switch
+            {
+                AvailableLanguages.English => "en-EN",
+                AvailableLanguages.Russian => "ru-RU",
+                _ => "en-EN"
+            };
+
+            string json = File.ReadAllText(Path.GetFullPath($"./Localization/Languages/{localizationFileName}.json"));
+            return JsonConvert.DeserializeObject<LocalizationRootModel>(json)?.Localization ?? 
+                throw new NullReferenceException("Localization file not found or malformed.");
         }
 
     }
