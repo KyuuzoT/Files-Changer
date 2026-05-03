@@ -1,4 +1,6 @@
-﻿namespace FilesChanger
+﻿using FilesChanger.View.CustomViewElements;
+
+namespace FilesChanger
 {
     partial class FilesChanger
     {

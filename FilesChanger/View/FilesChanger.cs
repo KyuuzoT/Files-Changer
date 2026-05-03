@@ -1,15 +1,23 @@
 ﻿using FilesChanger.Components;
+using FilesChanger.Localization;
+using FilesChanger.Localization.Models;
 
 namespace FilesChanger
 {
     public partial class FilesChanger : Form
     {
         private readonly LayoutBehaviourComponent layout;
+        private LocalizationHandler localizationHandler;
+        private IEnumerable<LocalizedStringModel> LanguageStrings = [];
 
         public FilesChanger()
         {
             InitializeComponent();
+
             bLanguageEn.Enabled = false;
+            localizationHandler = new LocalizationHandler(AvailableLanguages.English);
+            LanguageStrings = [.. localizationHandler.GetLocalizedStrings()];
+
             layout = new LayoutBehaviourComponent(pbBar, FilesListView, CurrentFile, cbRename);
         }
 
@@ -53,18 +61,22 @@ namespace FilesChanger
 
         private void EnLanguageButton_Click(object sender, EventArgs e)
         {
+            localizationHandler = new LocalizationHandler("English");
             if(bLanguageEn.Enabled)
             {
                 bLanguageEn.Enabled = false;
+                LanguageStrings = [.. localizationHandler.GetLocalizedStrings()];
                 bLanguageRu.Enabled = true;
             }
         }
 
         private void RuLanguageButton_Click(object sender, EventArgs e)
         {
+            localizationHandler = new LocalizationHandler("Russian");
             if (bLanguageRu.Enabled)
             {
                 bLanguageRu.Enabled = false;
+                LanguageStrings = [.. localizationHandler.GetLocalizedStrings()];
                 bLanguageEn.Enabled = true;
             }
         }
